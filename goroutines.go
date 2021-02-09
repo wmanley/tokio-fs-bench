@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"runtime"
 	"sync"
 	"time"
 )
@@ -37,6 +38,7 @@ func compute() {
 		}()
 	}
 	wg.Wait()
+	runtime.GC()
 }
 
 func main() {
