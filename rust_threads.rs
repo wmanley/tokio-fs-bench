@@ -25,6 +25,9 @@ fn compute() {
 }
 
 fn main() {
+    // warumup
+    compute();
+    
     let before = Instant::now();
     for _ in 0..1000 {
         compute();
