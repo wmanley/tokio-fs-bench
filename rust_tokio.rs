@@ -1,6 +1,6 @@
 use std::time::Instant;
 use tokio::{
-    fs::{File, OpenOptions},
+    fs::File,
     io::{AsyncReadExt, AsyncWriteExt},
     task::JoinHandle,
 };
@@ -12,14 +12,10 @@ async fn compute() {
                 let mut buffer = [0; 10];
                 {
                     let mut dev_urandom = File::open("/dev/urandom").await.unwrap();
-                    dev_urandom.read_exact(&mut buffer).await.unwrap();
+                    dev_urandom.read(&mut buffer).await.unwrap();
                 }
-                let mut dev_null = OpenOptions::new()
-                    .append(true)
-                    .open("/dev/null")
-                    .await
-                    .unwrap();
-                dev_null.write_all(&mut buffer).await.unwrap();
+                let mut dev_null = File::create("/dev/null").await.unwrap();
+                dev_null.write(&mut buffer).await.unwrap();
             })
         })
         .collect();

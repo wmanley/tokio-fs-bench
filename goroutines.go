@@ -14,12 +14,27 @@ func compute() {
 		go func() {
 			defer wg.Done()
 			buffer := make([]byte, 10)
-			devUrandom, _ := os.Open("/dev/urandom")
-			devUrandom.Read(buffer)
-			devUrandom.Close()
-			devNull, _ := os.OpenFile("/dev/null", os.O_APPEND|os.O_WRONLY, 0644)
-			devNull.Write(buffer)
-			devNull.Close()
+			devUrandom, err := os.Open("/dev/urandom")
+			if err != nil {
+				panic(err)
+			}
+
+			if _, err = devUrandom.Read(buffer); err != nil {
+				panic(err)
+			}
+			if err = devUrandom.Close(); err != nil {
+				panic(err)
+			}
+			devNull, err := os.Create("/dev/null")
+			if err != nil {
+				panic(err)
+			}
+			if _, err = devNull.Write(buffer); err != nil {
+				panic(err)
+			}
+			if err = devNull.Close(); err != nil {
+				panic(err)
+			}
 		}()
 	}
 	wg.Wait()

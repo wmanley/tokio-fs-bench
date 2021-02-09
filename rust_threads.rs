@@ -1,6 +1,6 @@
 use std::time::Instant;
 use std::{
-    fs::{File, OpenOptions},
+    fs::File,
     io::{Read, Write},
     thread::JoinHandle,
 };
@@ -12,10 +12,10 @@ fn compute() {
                 let mut buffer = [0; 10];
                 {
                     let mut dev_urandom = File::open("/dev/urandom").unwrap();
-                    dev_urandom.read_exact(&mut buffer).unwrap();
+                    dev_urandom.read(&mut buffer).unwrap();
                 }
-                let mut dev_null = OpenOptions::new().append(true).open("/dev/null").unwrap();
-                dev_null.write_all(&mut buffer).unwrap();
+                let mut dev_null = File::create("/dev/null").unwrap();
+                dev_null.write(&mut buffer).unwrap();
             })
         })
         .collect();
@@ -25,9 +25,9 @@ fn compute() {
 }
 
 fn main() {
-    // warumup
+    // warmup
     compute();
-    
+
     let before = Instant::now();
     for _ in 0..1000 {
         compute();
