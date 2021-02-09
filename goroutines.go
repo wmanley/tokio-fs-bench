@@ -18,7 +18,6 @@ func compute() {
 			if err != nil {
 				panic(err)
 			}
-
 			if _, err = devUrandom.Read(buffer); err != nil {
 				panic(err)
 			}
