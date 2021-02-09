@@ -16,8 +16,10 @@ func compute() {
 			buffer := make([]byte, 10)
 			devUrandom, _ := os.Open("/dev/urandom")
 			devUrandom.Read(buffer)
+			devUrandom.Close()
 			devNull, _ := os.OpenFile("/dev/null", os.O_APPEND|os.O_WRONLY, 0644)
 			devNull.Write(buffer)
+			devNull.Close()
 		}()
 	}
 	wg.Wait()
