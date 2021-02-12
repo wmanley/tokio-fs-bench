@@ -1,0 +1,18 @@
+[package]
+name = "tokio-fs-bench"
+version = "0.1.0"
+authors = ["niklaskorz", "William Manley <will@williammanley.net>"]
+edition = "2018"
+
+[[bin]]
+name = "rust_threads"
+path = "rust_threads.rs"
+
+[[bin]]
+name = "rust_tokio"
+path = "rust_tokio.rs"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+tokio = { version = "1", features = ["fs", "io-util", "macros", "rt", "rt-multi-thread"] }
