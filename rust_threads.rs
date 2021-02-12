@@ -11,7 +11,7 @@ fn compute() {
             std::thread::spawn(move || {
                 let mut buffer = [0; 10];
                 {
-                    let mut dev_urandom = File::open("/dev/urandom").unwrap();
+                    let mut dev_urandom = File::open("10-bytes").unwrap();
                     dev_urandom.read(&mut buffer).unwrap();
                 }
                 let mut dev_null = File::create("/dev/null").unwrap();

@@ -11,7 +11,7 @@ async fn compute() {
             tokio::spawn(async move {
                 let mut buffer = [0; 10];
                 {
-                    let mut dev_urandom = File::open("/dev/urandom").await.unwrap();
+                    let mut dev_urandom = File::open("10-bytes").await.unwrap();
                     dev_urandom.read(&mut buffer).await.unwrap();
                 }
                 let mut dev_null = File::create("/dev/null").await.unwrap();

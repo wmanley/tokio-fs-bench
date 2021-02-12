@@ -13,7 +13,7 @@ async fn compute() {
                 {
 
                     task::block_in_place(move || {
-                        let mut dev_urandom = File::open("/dev/urandom").unwrap();
+                        let mut dev_urandom = File::open("10-bytes").unwrap();
                         dev_urandom.read(&mut buffer).unwrap();
                     });
                 }
